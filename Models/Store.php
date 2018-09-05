@@ -125,7 +125,7 @@ class Store
      */
     public function toString()
     {
-        return sprintf('%s [%s, %d/%d]', $this->name, $this->address, $this->getProductCount(), $this->capacity);
+        return sprintf('%s [%s, %d/%d]', '<br/><strong>Store</strong>: ' . $this->name, $this->address, $this->getProductCount(), $this->capacity);
     }
 
     /**
