@@ -13,8 +13,15 @@ use Exception\StoreIsFullException;
 use Models\Store;
 use Models\Product;
 
+/**
+ * Class StoreManager
+ * @package Manager
+ */
 class StoreManager
 {
+    /**
+     * @var array
+     */
     private $stores;
 
     /**
@@ -41,6 +48,10 @@ class StoreManager
         array_push($this->stores, $store);
     }
 
+    /**
+     * @param Product $product
+     * @throws StoreIsFullException
+     */
     public function addProduct(Product $product)
     {
 
@@ -59,36 +70,35 @@ class StoreManager
             throw new StoreIsFullException();
     }
 
+    /**
+     *
+     */
     public function printProducts(): void
     {
         ?>
 
         <table class='table table-hover table-responsive table-bordered'>
-            <tr>
-                <th>Product</th>
-                <th>Item Number</th>
-            </tr>
-            <?php
-            foreach ($this->stores as $store) {
-                echo $store->toString();
-                foreach ($store->getProducts() as $product) {
-                    ?>
-                    <tr>
-                        <?php echo sprintf("\t %s (%d db)\n", $product->product->toString(), $product->count); ?>
-                        <td>
-                            <?php echo $product->product->toString(); ?>
-                        </td>
-                        <td>
-                            <?php echo $product->count; ?>
-                        </td>
-                    </tr>
 
-                <?php }
-            } ?>
-        </table>
         <?php
+        foreach ($this->stores as $store) {
+            echo $store->toString() . PHP_EOL;
+            foreach ($store->getProducts() as $product) {
+                ?>
+                <tr>
+                    <?php echo sprintf("\t %s (%d db)\n", $product->product->toString(), $product->count); ?>
+                </tr>
+
+            <?php }
+        } ?>
+
+        </table>
+        <?php echo PHP_EOL;
     }
 
+    /**
+     * @param Product $product
+     * @throws NoSuchProductInStores
+     */
     public function removeProduct(Product $product): void
     {
         foreach ($this->stores as $store) {

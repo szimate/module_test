@@ -82,7 +82,8 @@ function simulation_2()
             $storeManager->addProduct($car);
         }
     } catch (\Exception\StoreIsFullException $exception) {
-        echo $exception->getMessage();
+        ?>
+        <strong> <?php echo $exception->getMessage(); ?> </strong> <?php
     }
     $storeManager->printProducts();
 
@@ -90,7 +91,8 @@ function simulation_2()
         $storeManager->removeProduct($car);
         $storeManager->removeProduct($car);
     } catch (\Exception\NoSuchProductInStores $exception) {
-        echo $exception->getMessage();
+        ?>
+        <strong> <?php echo $exception->getMessage(); ?> </strong> <?php
     }
     $storeManager->printProducts();
 
@@ -121,7 +123,8 @@ function simulation_3()
             $storeManager->addProduct($car);
         }
     } catch (\Exception\StoreIsFullException $exception) {
-        echo PHP_EOL . $exception->getMessage();
+        ?>
+        <strong> <?php echo PHP_EOL . $exception->getMessage(); ?> </strong> <?php
     }
 
     $storeManager->printProducts();
@@ -130,8 +133,8 @@ function simulation_3()
         for ($i = 0; $i < 22; $i++) {
             $storeManager->removeProduct($car);
         }
-    } catch (\Exception\NoSuchProductInStores $exception) {
-        echo PHP_EOL . $exception->getMessage();
+    } catch (\Exception\NoSuchProductInStores $exception) { ?>
+        <strong> <?php echo PHP_EOL . $exception->getMessage(); ?> </strong> <?php
     }
 
     $storeManager->printProducts();
