@@ -119,13 +119,13 @@ class Store
     /**
      * @return string
      */
-    public function toString()
+    public function __toString()
     {
         return sprintf('%s [%s, %d/%d]', $this->name, $this->capacity, $this->address);
     }
 
     public function addProduct(Product $product) : void {
-        
+
     }
 
 

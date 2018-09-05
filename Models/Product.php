@@ -28,22 +28,22 @@ class Product
     /**
      * @var
      */
-    private $itemNumber;
+    protected $itemNumber;
 
     /**
      * @var
      */
-    private $name;
+    protected $name;
 
     /**
      * @var
      */
-    private $price;
+    protected $price;
 
     /**
      * @var
      */
-    private $brand;
+    protected $brand;
 
     /**
      * Product constructor.
@@ -129,10 +129,80 @@ class Product
     /**
      * @return string
      */
-    public function toString() : string
+    public function toString(): string
     {
         return sprintf('%s [%s, %d HUF, %s]', $this->name, $this->brand,
             $this->price, $this->itemNumber->toString());
+    }
+
+}
+
+class Special extends Product
+{
+    private $dangerous;
+
+    public function __construct($itemNumber, $name, $price, $brand, bool $dangerous)
+    {
+        parent::__construct($itemNumber, $name, $price, $brand);
+        $this->dangerous = $dangerous;
+    }
+
+    public function __toString()
+    {
+        return sprintf('%s [%s, %d HUF, %s]', $this->name, $this->brand,
+            $this->price, $this->itemNumber, $this->dangerous->toString());
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isDangerous(): bool
+    {
+        return $this->dangerous;
+    }
+
+    /**
+     * @param bool $dangerous
+     */
+    public function setDangerous(bool $dangerous): void
+    {
+        $this->dangerous = $dangerous;
+    }
+
+
+}
+
+class EvcNumber extends Product
+{
+    private $evcNumber;
+
+    public function __construct($itemNumber, $name, $price, $brand, int $evcNumber)
+    {
+        parent::__construct($itemNumber, $name, $price, $brand);
+        $this->evcNumber = $evcNumber;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEvcNumber(): int
+    {
+        return $this->evcNumber;
+    }
+
+    /**
+     * @param int $evcNumber
+     */
+    public function setEvcNumber(int $evcNumber): void
+    {
+        $this->evcNumber = $evcNumber;
+    }
+
+    public function __toString(): string
+    {
+        return sprintf('%s [%s, %d HUF, %s]', $this->name, $this->brand,
+            $this->price, $this->itemNumber, $this->evcNumber->toString());
     }
 
 

@@ -86,7 +86,7 @@ class Brand
     /**
      * @return string
      */
-    public function toString(): string
+    public function __toString(): string
     {
         return sprintf('%s [%d]', $this->name, $this->category);
     }
