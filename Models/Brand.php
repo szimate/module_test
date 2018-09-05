@@ -13,10 +13,6 @@ namespace Models;
  * Class Brand
  * @package Models
  */
-/**
- * Class Brand
- * @package Models
- */
 class Brand
 {
     /**
@@ -86,7 +82,7 @@ class Brand
     /**
      * @return string
      */
-    public function __toString(): string
+    public function toString(): string
     {
         return sprintf('%s [%d]', $this->name, $this->category);
     }

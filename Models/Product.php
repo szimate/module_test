@@ -52,7 +52,7 @@ class Product
      * @param $price
      * @param $brand
      */
-    public function __construct($itemNumber, $name, $price, $brand)
+    public function __construct(int $itemNumber, string $name, int $price, Brand $brand)
     {
         $this->id = Product::$ID++;
         $this->itemNumber = $itemNumber;
@@ -61,6 +61,13 @@ class Product
         $this->brand = $brand;
     }
 
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     /**
      * @return string
@@ -111,17 +118,17 @@ class Product
     }
 
     /**
-     * @return string
+     * @return Brand
      */
-    public function getBrand(): string
+    public function getBrand(): Brand
     {
         return $this->brand;
     }
 
     /**
-     * @param string $brand
+     * @param Brand $brand
      */
-    public function setBrand(string $brand): void
+    public function setBrand(Brand $brand): void
     {
         $this->brand = $brand;
     }
@@ -131,79 +138,11 @@ class Product
      */
     public function toString(): string
     {
-        return sprintf('%s [%s, %d HUF, %s]', $this->name, $this->brand,
-            $this->price, $this->itemNumber->toString());
+        return sprintf('%s [%s, %d HUF, %s]', $this->name, $this->itemNumber, $this->price,
+            $this->brand->toString());
     }
 
 }
 
-class Special extends Product
-{
-    private $dangerous;
-
-    public function __construct($itemNumber, $name, $price, $brand, bool $dangerous)
-    {
-        parent::__construct($itemNumber, $name, $price, $brand);
-        $this->dangerous = $dangerous;
-    }
-
-    public function __toString()
-    {
-        return sprintf('%s [%s, %d HUF, %s]', $this->name, $this->brand,
-            $this->price, $this->itemNumber, $this->dangerous->toString());
-    }
 
 
-    /**
-     * @return bool
-     */
-    public function isDangerous(): bool
-    {
-        return $this->dangerous;
-    }
-
-    /**
-     * @param bool $dangerous
-     */
-    public function setDangerous(bool $dangerous): void
-    {
-        $this->dangerous = $dangerous;
-    }
-
-
-}
-
-class EvcNumber extends Product
-{
-    private $evcNumber;
-
-    public function __construct($itemNumber, $name, $price, $brand, int $evcNumber)
-    {
-        parent::__construct($itemNumber, $name, $price, $brand);
-        $this->evcNumber = $evcNumber;
-    }
-
-    /**
-     * @return int
-     */
-    public function getEvcNumber(): int
-    {
-        return $this->evcNumber;
-    }
-
-    /**
-     * @param int $evcNumber
-     */
-    public function setEvcNumber(int $evcNumber): void
-    {
-        $this->evcNumber = $evcNumber;
-    }
-
-    public function __toString(): string
-    {
-        return sprintf('%s [%s, %d HUF, %s]', $this->name, $this->brand,
-            $this->price, $this->itemNumber, $this->evcNumber->toString());
-    }
-
-
-}

@@ -8,6 +8,7 @@
 
 namespace Models;
 
+use stdClass;
 
 /**
  * Class Store
@@ -55,9 +56,12 @@ class Store
         $this->products = [];
     }
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
-        return $this->if;
+        return $this->id;
     }
 
     /**
@@ -119,13 +123,91 @@ class Store
     /**
      * @return string
      */
-    public function __toString()
+    public function toString()
     {
-        return sprintf('%s [%s, %d/%d]', $this->name, $this->capacity, $this->address);
+        return sprintf('%s [%s, %d/%d]', $this->name, $this->address, $this->getProductCount(), $this->capacity);
     }
 
-    public function addProduct(Product $product) : void {
+    /**
+     * @param Product $product
+     */
+    public function addProduct(Product $product): void
+    {
+        $found = false;
 
+        foreach ($this->products as $prod) {
+            if ($prod->product->getId() === $product->getId()) {
+                $prod->count++;
+
+                $found = true;
+                break;
+            }
+        }
+        if (!$found) {
+            $p = new stdClass();
+            $p->product = $product;
+            $p->count = 1;
+
+            array_push($this->products, $p);
+        }
+
+    }
+
+    /**
+     * @param Product $product
+     * @return bool
+     */
+    public function hasProduct(Product $product): bool
+    {
+        foreach ($this->products as $prod) {
+            if ($prod->product->getId() === $product->getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param Product $product
+     * @return bool
+     */
+    public function removeProduct(Product $product): bool
+    {
+        for ($i = 0; $i < count($this->products); $i++) {
+            $prod = $this->products[$i];
+
+            if ($prod->product->getId() === $product->getId()) {
+                if ($prod->count === 1) {
+                    unset($this->products[$i]);
+                } else {
+                    $prod->count--;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getProductCount(): int
+    {
+        $count = 0;
+
+        foreach ($this->products as $product) {
+            $count += $product->count;
+        }
+        return $count;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFull(): bool
+    {
+        return $this->capacity === $this->getProductCount();
     }
 
 
