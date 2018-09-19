@@ -10,6 +10,7 @@ namespace Manager;
 
 use Exception\NoSuchProductInStores;
 use Exception\StoreIsFullException;
+
 use Models\Store;
 use Models\Product;
 
@@ -79,17 +80,17 @@ class StoreManager
 
         <table class='table table-hover table-responsive table-bordered'>
 
-        <?php
-        foreach ($this->stores as $store) {
-            echo $store->toString() . PHP_EOL;
-            foreach ($store->getProducts() as $product) {
-                ?>
-                <tr>
-                    <?php echo sprintf("\t %s (%d db)\n", $product->product->toString(), $product->count); ?>
-                </tr>
+            <?php
+            foreach ($this->stores as $store) {
+                echo $store->toString() . PHP_EOL;
+                foreach ($store->getProducts() as $product) {
+                    ?>
+                    <tr>
+                        <?php echo sprintf(" %s (%d db)\n", $product->product->toString(), $product->count); ?>
+                    </tr>
 
-            <?php }
-        } ?>
+                <?php }
+            } ?>
 
         </table>
         <?php echo PHP_EOL;
@@ -109,6 +110,5 @@ class StoreManager
         }
         throw new NoSuchProductInStores();
     }
-
 
 }

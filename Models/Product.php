@@ -8,6 +8,8 @@
 
 namespace Models;
 
+use Exception\NoSuchProductInStores;
+
 
 /**
  * Class Product
@@ -138,11 +140,8 @@ class Product
      */
     public function toString(): string
     {
-        return sprintf('%s [%s, %d HUF, %s]', '<br/><strong>Product/Car/Chemical:</strong>' . $this->name, $this->itemNumber, $this->price,
+        return sprintf('%s [%d, %d HUF, %s]', '<br/><strong>Product/Car/Chemical:</strong>' . $this->name, $this->itemNumber, $this->price,
             $this->brand->toString());
     }
 
 }
-
-
-

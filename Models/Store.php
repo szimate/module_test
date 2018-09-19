@@ -23,23 +23,23 @@ class Store
     /**
      * @var int
      */
-    private $id;
+    protected $id;
     /**
      * @var string
      */
-    private $name;
+    protected $name;
     /**
      * @var string
      */
-    private $address;
+    protected $address;
     /**
      * @var int
      */
-    private $capacity;
+    protected $capacity;
     /**
      * @var array
      */
-    private $products;
+    protected $products;
 
     /**
      * Store constructor.

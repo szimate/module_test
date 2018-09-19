@@ -6,27 +6,21 @@
  * Time: 16:33
  */
 
-require_once 'Exceptions/StoreIsFullException.php';
-require_once 'Exceptions/NoSuchProductInStores.php';
-
-require_once 'Manager/StoreManager.php';
-
-require_once 'Models/Store.php';
-require_once 'Models/Product.php';
-require_once 'Models/Brand.php';
-require_once 'Models/Car.php';
-require_once 'Models/Chemical.php';
-
+require_once 'vendor/autoload.php';
 
 /**
  * létrehoz 2 raktárat, felvesz x terméket, kikér y terméket
  */
+
+
 function simulation_1()
 {
 
+    $data = include 'config.php';
+
     //storeManager & stores
     $storeManager = new \Manager\StoreManager();
-    $storeManager->setStore(new \Models\Store('Chemical Store', 'Budapest Kapa út 3', 10));
+    $storeManager->setStore(new \Models\Store($data['name'], $data['address'], $data['capacity']));
     $storeManager->setStore(new \Models\Store('Car Store', 'Budapest István utca 3', 2));
 
     //brands
@@ -145,5 +139,10 @@ include 'header.php';
 simulation_1();
 simulation_2();
 simulation_3();
+
+$reflector = new ReflectionClass('\Models\Car');
+var_dump($reflector->getName());
+var_dump($reflector->getDocComment());
+
 
 include 'footer.php';

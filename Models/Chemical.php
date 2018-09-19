@@ -35,7 +35,7 @@ class Chemical extends Product
      */
     public function toString(): string
     {
-        return sprintf('%s [%s, %d HUF, %s]', $this->name, $this->brand->toString(),
+        return sprintf('%s [%s, %d HUF, %d, %s]', $this->name, $this->brand->toString(),
             $this->price, $this->itemNumber, $this->dangerous);
     }
 
